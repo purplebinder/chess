@@ -1,0 +1,20 @@
+=== Ruby Chess
+
+This is a simple, command-line chess game.
+The interface will look something like this.
+
+         a b c d e f g h
+      1  R N B K Q B N R
+      2  p p p p p p p p
+      3  . . . . . . . .
+      4  . . . . . . . .
+      5  . . . . . . . .
+      6  . . . . . . . .
+      7  p p p p p p p p
+      8  R N B K Q B N R
+
+You need to finish building it. You will have to finish
+defining the classes the describe each of the chess pieces.
+For each one, you will need to 
+1. define a `to_s` method, that will print the piece out for the ASCII representation of the board.
+2. define a `can_move?` method, that will return true if a proposed move is legal, and false otherwise.
