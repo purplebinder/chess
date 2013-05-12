@@ -40,6 +40,10 @@ module Chess
       "h7" => Chess::Pieces::Pawn
     }
 
+    PLAYERS = ['White', 'Black']
+
+    attr_reader :turn
+
     def initialize
       @board = BLANK_BOARD.dup
       @board.each { |key, val| @board[key] = BLANK_ROW.dup }
@@ -49,6 +53,8 @@ module Chess
       BLACK_PIECES.each do |position, piece_class|
         set_piece(position, piece_class.new("Black"))
       end
+      @turn = PLAYERS[0]  # 'White'
+      self
     end
 
     ### METHODS FOR PRINTING A BOARD
@@ -79,13 +85,42 @@ module Chess
     ###  END OF SECTION ON PRINTING
 
     def move(from, to)
+      if from == to
+        return false
+        # set error message
+      end
       piece = get_piece(from)
-      if piece.can_move?(to, self)
+      if piece.nil?
+        return false
+        # set error message
+      end
+      if piece.color != turn
+        return false
+        # set error message
+      end
+      vector = Chess::MoveVector.new(from, to)
+      unless piece.can_jump? or path_clear?(vector.to_a)
+        return false
+        # set error message
+      end
+      if piece.can_move?(vector)
         set_piece(to, piece)
+        @turn = (PLAYERS - [@turn])[0]  # toggle turn
         return true
       else
         return false
       end
+    end
+
+    def path_clear?(vector)
+      steps = vector.to_a
+      steps.slice!(-1) # remove final step, which is the destination
+      steps.each do |position|
+        if get_piece(position) != nil
+          return false
+        end
+      end
+      return true
     end
 
     def set_piece(position, piece)
@@ -98,5 +133,11 @@ module Chess
     def get_piece(position)
       @board[position[1].to_i][position[0].downcase]
     end
+
+    def remove_piece(position_string)
+      position = Chess::Position.new(position_string)
+      @board[position.row][position.column] = nil
+    end
   end
+
 end

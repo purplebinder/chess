@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require File.expand_path('lib/chess', File.dirname(File.dirname(__FILE__)))
+
+Chess::Cli.run(ARGV)

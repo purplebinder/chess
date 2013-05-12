@@ -6,7 +6,7 @@ module Chess
         'p'
       end
 
-      def can_move?(position, board)
+      def can_move?(position)
         true
       end
     end

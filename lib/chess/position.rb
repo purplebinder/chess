@@ -42,7 +42,6 @@ module Chess
       def extract_args(position_string)
         return [position_string[1].to_i, position_string[0].downcase]
       end
-
     end
 
   end

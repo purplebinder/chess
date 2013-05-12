@@ -1,7 +1,7 @@
 module Chess
   module Pieces
     class Base
-      attr_accessor :row, :col
+      attr_accessor :row, :col, :color
 
       def initialize(color)
         @color = color
@@ -11,8 +11,12 @@ module Chess
         "x"
       end
 
-      def can_move?(position, board)
+      def can_move?(position)
         raise "#{self.class} has not implemented the can_move? method.  Implement it in #{__FILE__}"
+      end
+
+      def can_jump?
+        false
       end
     end
   end
