@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+gem 'rainbow'
+
 group :test, :development do
   gem 'rspec'
   gem 'linecache19', :git => "git://github.com/mark-moseley/linecache"

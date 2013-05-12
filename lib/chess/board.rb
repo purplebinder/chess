@@ -1,6 +1,6 @@
 module Chess
   class Board
-    HEADER_STRING = "    a b c d e f g h"
+    HEADER_STRING = "    a b c d e f g h".color(:green)
     BLANK_ROW = {"a" => nil, "b" => nil, "c" => nil, "d" => nil, "e" => nil, "f" => nil, "g" => nil, "h" => nil}
     BLANK_BOARD = {1 =>  nil, 2 => nil, 3 =>  nil, 4 =>  nil, 5 =>  nil, 6 =>  nil, 7 =>  nil, 8 =>  nil} 
     WHITE_PIECES = {
@@ -67,18 +67,19 @@ module Chess
     end
 
     def row_to_s(row_index, row)
-      row.inject(" #{row_index} ") do |output_string_for_row, key_val|
-        col_index = key_val[0]
+      row.inject(" #{row_index} ".color(:green)) do |output_string_for_row, key_val|
+        col_index = %w[a b c d e f g h].index(key_val[0]) + 1
         piece = key_val[1]
-        output_string_for_row + ' ' + position_to_s(piece)
+        background_color = (((row_index + col_index) % 2 == 0) ? :white : :blue)
+        output_string_for_row + ' ' + position_to_s(piece, background_color)
       end
     end
 
-    def position_to_s(piece)
+    def position_to_s(piece, background_color)
       if piece.nil?
-        '.'
+        '.'.color(background_color)
       else
-        piece.to_s
+        piece.to_s.color(piece.color == 'White' ? :white : :blue)
       end
     end
 
