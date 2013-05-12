@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Chess::Game do
   let(:game) { Chess::Game.new }
   it "can generate a string representation of a new board" do
-    game.to_s.should include(<<-'board')
+    game.to_s.should include(<<-'board'.strip)
     a b c d e f g h
  1  R N B K Q B N R
  2  p p p p p p p p

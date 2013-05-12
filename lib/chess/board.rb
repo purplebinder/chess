@@ -4,14 +4,14 @@ module Chess
     BLANK_ROW = {"a" => nil, "b" => nil, "c" => nil, "d" => nil, "e" => nil, "f" => nil, "g" => nil, "h" => nil}
     BLANK_BOARD = {1 =>  nil, 2 => nil, 3 =>  nil, 4 =>  nil, 5 =>  nil, 6 =>  nil, 7 =>  nil, 8 =>  nil} 
     WHITE_PIECES = {
-      "a1" => Chess::Pieces::Base, # should be a Rook
-      "b1" => Chess::Pieces::Base, # should be a Knight
-      "c1" => Chess::Pieces::Base, # should be a Bishop
-      "d1" => Chess::Pieces::Base, # should be a King (or Queen?)
-      "e1" => Chess::Pieces::Base, # should be a Queen (or King?)
-      "f1" => Chess::Pieces::Base, # should be a Bishop
-      "g1" => Chess::Pieces::Base, # should be a Knight
-      "h1" => Chess::Pieces::Base, # should be a Rook
+      "a1" => Chess::Pieces::Rook,
+      "b1" => Chess::Pieces::Knight,
+      "c1" => Chess::Pieces::Bishop,
+      "d1" => Chess::Pieces::King,
+      "e1" => Chess::Pieces::Queen,
+      "f1" => Chess::Pieces::Bishop,
+      "g1" => Chess::Pieces::Knight,
+      "h1" => Chess::Pieces::Rook,
       "a2" => Chess::Pieces::Pawn,
       "b2" => Chess::Pieces::Pawn,
       "c2" => Chess::Pieces::Pawn,
@@ -22,14 +22,14 @@ module Chess
       "h2" => Chess::Pieces::Pawn
     }
     BLACK_PIECES = {
-      "a8" => Chess::Pieces::Base, # should be a Rook
-      "b8" => Chess::Pieces::Base, # should be a Knight
-      "c8" => Chess::Pieces::Base, # should be a Bishop
-      "d8" => Chess::Pieces::Base, # should be a King (or Queen?)
-      "e8" => Chess::Pieces::Base, # should be a Queen (or King?)
-      "f8" => Chess::Pieces::Base, # should be a Bishop
-      "g8" => Chess::Pieces::Base, # should be a Knight
-      "h8" => Chess::Pieces::Base, # should be a Rook
+      "a8" => Chess::Pieces::Rook,
+      "b8" => Chess::Pieces::Knight,
+      "c8" => Chess::Pieces::Bishop,
+      "d8" => Chess::Pieces::King,
+      "e8" => Chess::Pieces::Queen,
+      "f8" => Chess::Pieces::Bishop,
+      "g8" => Chess::Pieces::Knight,
+      "h8" => Chess::Pieces::Rook,
       "a7" => Chess::Pieces::Pawn,
       "b7" => Chess::Pieces::Pawn,
       "c7" => Chess::Pieces::Pawn,
