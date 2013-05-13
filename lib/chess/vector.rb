@@ -1,5 +1,5 @@
 module Chess
-  class MoveVector
+  class Vector
     class BadArgumentError < StandardError; end
 
     attr_reader :dx, :dy, :start, :end

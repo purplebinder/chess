@@ -1,3 +1,30 @@
+### 
+#  The board maintains a representation of a physical board,
+#  storing it as a hash of hashes.
+#
+#  The board can print a string representation of itself, which will look
+#  sort of like this:
+#
+#                a b c d e f g h
+#             1  R N B K Q B N R
+#             2  p p p p p p p p
+#             3  . . . . . . . .
+#             4  . . . . . . . .
+#             5  . . . . . . . .
+#             6  . . . . . . . .
+#             7  p p p p p p p p
+#             8  R N B K Q B N R
+#
+#  It stores the current "turn", i.e. White or Black, as an instance variable.
+#  The board receive move commands, which are supposed to come as pairs of
+#  position strings.
+#      
+#      # Opening move for white: advance a pawn two spaces
+#      board.move("b2", "b4")
+#
+#  It needs to assess whether these are valid moves, and return true if they are,
+#  false otherwise.
+#
 module Chess
   class Board
     HEADER_STRING = "    a b c d e f g h".color(:green)
@@ -85,6 +112,21 @@ module Chess
 
     ###  END OF SECTION ON PRINTING
 
+    ### Move
+    #   This method is a beast, but it just does a lot of checks to 
+    #   see if the move is valid.
+    #   If any of them fail, it returns false.
+    #   Specifically, move is invalid if
+    #     * You are "moving" a piece in place, i.e. not really moving it.
+    #     * You are moving nothing, i.e. the start position is an empty square with no piece on it.
+    #     * You are moving the other player's piece.  
+    #       The board knows whose turn it is, and will only let you move pieces of that color.
+    #     * The piece in question cannot jump (i.e. anything but a knight) and there is no direct
+    #       path between the start and end positions.
+    #     * You are trying to land on your own piece.
+    #
+    #   If all of these checks pass, the method returns true.
+    #
     def move(from, to)
       if from == to
         return false
@@ -99,7 +141,7 @@ module Chess
         return false
         # TODO set error message
       end
-      vector = Chess::MoveVector.new(from, to)
+      vector = Chess::Vector.new(from, to)
       unless piece.can_jump? or path_clear?(vector.to_a)
         return false
         # TODO set error message
@@ -112,6 +154,7 @@ module Chess
       end
 
       if piece.can_move?(vector, (!!target_piece))
+        remove_piece(from)
         set_piece(to, piece)
         @turn = (PLAYERS - [@turn])[0]  # toggle turn
         return true
@@ -119,6 +162,8 @@ module Chess
         return false
       end
     end
+
+    ### Helper for the move method
 
     def path_clear?(vector)
       steps = vector.to_a
@@ -131,15 +176,17 @@ module Chess
       return true
     end
 
-    def set_piece(position, piece)
-      @board[piece.row][piece.col] = nil if piece.row and piece.col
-      piece.row = position[1].to_i
-      piece.col = position[0].downcase
-      @board[position[1].to_i][position[0].downcase] = piece
+
+    ### Utility methods for getting and setting pieces on the board
+    
+    def set_piece(position_string, piece)
+      position = Chess::Position.new(position_string)
+      @board[position.row][position.column] = piece
     end
 
-    def get_piece(position)
-      @board[position[1].to_i][position[0].downcase]
+    def get_piece(position_string)
+      position = Chess::Position.new(position_string)
+      @board[position.row][position.column]
     end
 
     def remove_piece(position_string)

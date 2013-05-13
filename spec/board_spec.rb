@@ -74,6 +74,13 @@ board
       board.set_piece("d5", white_pawn)
       board.move("c6", "d5").should == false
     end
+
+    it "removes the piece from the old position" do
+      pawn = Chess::Pieces::Pawn.new('White')
+      board.set_piece("a3", pawn)
+      board.move("a3", "a4")
+      board.get_piece("a3").should == nil
+    end
   end
 
   describe "#can_move?" do
@@ -106,10 +113,6 @@ board
       board.get_piece("a3").should == pawn
     end
 
-    it "removes the piece from the old position" do
-      board.set_piece("a3", pawn)
-      board.get_piece("a2").should == nil
-    end
   end
 
   describe "#remove piece" do
