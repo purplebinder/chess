@@ -4,7 +4,7 @@ require 'spec_helper'
 # Octopi are very quick.  They can move anywhere.
 class Chess::Pieces::Octopus < Chess::Pieces::Base
   def to_s; 'o'; end
-  def can_move?(vector)
+  def can_move?(vector, kill = false)
     true
   end
 end
@@ -13,7 +13,9 @@ describe Chess::Board do
   let(:board) { Chess::Board.new }
 
   it "can generate a string representation of a new board" do
-    Chess::Board.new.to_s.should include(<<-'board'.strip)
+    str = Chess::Board.new.to_s
+    str.gsub!(/\e\[\d*m/, '') # take out color codes
+    str.should include(<<-'board'.strip)
     a b c d e f g h
  1  R N B K Q B N R
  2  p p p p p p p p
@@ -35,10 +37,9 @@ board
       board.move("c6", "c7").should == false
     end
 
-    it "complains if you try to move onto your own piece" do
+    it "complains if you try to move a piece onto itself" do
       board.set_piece("c6", white_octopus)
       board.move("c6", "c6").should == false
-
     end
     
     it "complains if you can't jump and you try to move through a piece" do
@@ -66,6 +67,12 @@ board
       board.move("f6", "e6").should == false  # black tries to take the first turn
       board.move("c6", "b5").should == true  # white moves successfully
       board.move("b5", "b6").should == false  # white tries to take a second turn
+    end
+
+    it "doesn't let you land on your own pieces" do
+      board.set_piece("c6", white_octopus)
+      board.set_piece("d5", white_pawn)
+      board.move("c6", "d5").should == false
     end
   end
 

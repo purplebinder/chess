@@ -6,7 +6,7 @@ module Chess
         'B'
       end
 
-      def can_move?(vector)
+      def can_move?(vector, kill = false)
         vector.dx.abs == vector.dy.abs
       end
 

@@ -104,7 +104,14 @@ module Chess
         return false
         # TODO set error message
       end
-      if piece.can_move?(vector)
+      target_piece = get_piece(to)
+
+      if target_piece and target_piece.color == piece.color  # don't land on your own pieces
+        return false
+        # TODO set error message
+      end
+
+      if piece.can_move?(vector, (!!target_piece))
         set_piece(to, piece)
         @turn = (PLAYERS - [@turn])[0]  # toggle turn
         return true

@@ -6,7 +6,7 @@ module Chess
         'Q'
       end
 
-      def can_move?(vector)
+      def can_move?(vector, kill = false)
         vector.dx.abs == vector.dy.abs or vector.dx == 0 or vector.dy == 0
       end
 
