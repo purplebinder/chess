@@ -24,10 +24,8 @@ based on a number of rules.  Specifically, the move is
 not legal if
 1. You are "moving" a piece in place, i.e. not really moving it.
 2. You are moving nothing, i.e. the start position is an empty square with no piece on it.
-3. You are moving the other player's piece.  
-4. The board knows whose turn it is, and will only let you move pieces of that color.
-5. The piece in question cannot jump (i.e. anything but a knight) and there is no direct
-6. path between the start and end positions.
+3. You are moving the other player's piece. The board knows whose turn it is, and will only let you move pieces of that color.
+5. The piece in question cannot jump (i.e. anything but a knight) and there is no direct path between the start and end positions.
 7. You are trying to land on your own piece.
 
 If all the move does not fail for any of these conditions, then
