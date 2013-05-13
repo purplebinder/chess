@@ -88,21 +88,21 @@ module Chess
     def move(from, to)
       if from == to
         return false
-        # set error message
+        # TODO set error message
       end
       piece = get_piece(from)
       if piece.nil?
         return false
-        # set error message
+        # TODO set error message
       end
       if piece.color != turn
         return false
-        # set error message
+        # TODO set error message
       end
       vector = Chess::MoveVector.new(from, to)
       unless piece.can_jump? or path_clear?(vector.to_a)
         return false
-        # set error message
+        # TODO set error message
       end
       if piece.can_move?(vector)
         set_piece(to, piece)

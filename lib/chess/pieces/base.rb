@@ -12,7 +12,7 @@ module Chess
       end
 
       def can_move?(position)
-        raise "#{self.class} has not implemented the can_move? method.  Implement it in #{__FILE__}"
+        raise "#{self.class} has not implemented the can_move? method."
       end
 
       def can_jump?

@@ -6,6 +6,10 @@ module Chess
         'R'
       end
 
+      def can_move?(vector)
+        vector.dx == 0 or vector.dy == 0
+      end
+
     end
   end
 end

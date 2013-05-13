@@ -2,7 +2,7 @@ module Chess
   class MoveVector
     class BadArgumentError < StandardError; end
 
-    attr_reader :dx, :dy
+    attr_reader :dx, :dy, :start, :end
 
     def initialize(start_position, end_position)
       raise BadArgumentError.new("start position must be different from end position") if start_position == end_position
